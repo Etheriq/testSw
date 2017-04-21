@@ -1,6 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
+inhibit_all_warnings!
 def shared_pods
     use_frameworks!
     pod 'Alamofire', '~> 4.3'
@@ -8,6 +9,7 @@ def shared_pods
     pod 'KVNProgress', :git => 'https://github.com/kevin-hirsch/KVNProgress.git', :tag => '2.2'
     pod 'Moya', '~> 8.0'
     pod 'ObjectMapper', '~> 2.2'
+    pod 'AlamofireObjectMapper', '~> 4.0'
     pod 'DATAStack', '~> 7.0'
     pod 'PromiseKit', '~> 4.1'
     pod 'FXKeychain', '~> 1.5'
