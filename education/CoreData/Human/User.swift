@@ -21,11 +21,7 @@ open class User: _User, StaticMappable {
         return nil
     }
     
-    
-    private func zzz() {
-        Networking.shared.zzUser();
-    }
-    
+    var surveyIn: Survey?
     
     //MARK: - Mappable
     public static func objectForMapping(map: Map) -> BaseMappable? {
@@ -41,6 +37,7 @@ open class User: _User, StaticMappable {
         username <- map["username"]
         email <- map["email"]
         birthday <- (map["birthday"], CustomMappableTransform.date)
-        events <- map["events"]
+        events <- map["events.id"]
+        surveyIn <- map["survey"]
     }
 }

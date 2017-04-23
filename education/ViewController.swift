@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class ViewController: UIViewController {
 
@@ -20,6 +21,43 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func sendButton(_ sender: UIButton) {
+        
+//        Networking.shared.getMe().then { user -> Promise<User> in
+//            print(user?.username ?? "default")
+//            
+//            
+//            
+//            return Promise<User>() {fulfill, reject in
+//                fulfill(user!)
+//            }
+//            }.then { user -> Void in
+//                do {
+//                    try DataStack.shared.mainContext.save()
+//                } catch {
+//                    throw networkErrors.saveToDBError
+//                }
+//            }.catch { error in
+//                print(error.localizedDescription)
+//        }
+        
+        Networking.shared.getMe().then { user -> Void in
+            print(user?.username ?? "default")
+                do {
+                    try DataStack.shared.mainContext.save()
+                    print("saved")
+                } catch {
+                    throw networkErrors.saveToDBError
+                }
+            }.catch { error in
+                print(error.localizedDescription)
+        }
+        
+        
+        
+        
+        
+    }
 
 }
 

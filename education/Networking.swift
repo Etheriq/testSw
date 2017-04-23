@@ -11,26 +11,37 @@ import Alamofire
 import AlamofireObjectMapper
 import PromiseKit
 
+public enum networkErrors : Error {
+    case requestError
+    case saveToDBError
+    case unknowError
+}
+
 class Networking: NSObject {
     
     static let shared = Networking()
     
     private override init() {};
     
-    func zzUser() -> Promise<User>  {
+    func getMe() -> Promise<User?>  {
         
-        return Promise<User>() { fulfill, reject in
-            let URL = "https://raw.githubusercontent.com/tristanhimmelman/AlamofireObjectMapper/d8bb95982be8a11a2308e779bb9a9707ebe42ede/sample_json"
+        return Promise<User?>() { fulfill, reject in
+            let URL = "http://192.168.0.102:3001/me"
             
-            Alamofire.request(URL, method: .get, headers: ["api-key": "qwerty"]).responseObject{ (response: DataResponse<User>) in
-                let user = response.result.value
-                
-                if user != nil {
-                    fulfill(user!)
-                } else {
-                    let error = NSError(domain: "zz", code: 0, userInfo: nil)
-                    reject(error)
+            Alamofire.request(URL, method: .get, headers: ["api-key": "qwerty"]).responseObject(keyPath:"user"){ (response: DataResponse<User>) in
+                guard let user = response.result.value else {
+                    reject(networkErrors.requestError)
+                    return
                 }
+                
+                fulfill(user)
+//                
+//                if user != nil {
+//                    fulfill(user!)
+//                } else {
+//                    let error = NSError(domain: "zz", code: 0, userInfo: nil)
+//                    reject(error)
+//                }
             }
         }
         
