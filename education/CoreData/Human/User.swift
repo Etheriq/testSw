@@ -37,7 +37,7 @@ open class User: _User, StaticMappable {
         username <- map["username"]
         email <- map["email"]
         birthday <- (map["birthday"], CustomMappableTransform.date)
-        events <- map["events.id"]
+        events <- (map["events"], CustomMappableTransform.eventsMap)
         surveyIn <- map["survey"]
     }
 }

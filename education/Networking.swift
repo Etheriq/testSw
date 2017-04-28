@@ -35,13 +35,6 @@ class Networking: NSObject {
                 }
                 
                 fulfill(user)
-//                
-//                if user != nil {
-//                    fulfill(user!)
-//                } else {
-//                    let error = NSError(domain: "zz", code: 0, userInfo: nil)
-//                    reject(error)
-//                }
             }
         }
         

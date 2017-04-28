@@ -11,6 +11,17 @@ import ObjectMapper
 
 class CustomMappableTransform: NSObject {
 
+    static let eventsMap = TransformOf<NSSet, [[String: Any]]>(
+        fromJSON: { (value: [[String: Any]]?) -> NSSet? in
+            return NSSet(array: Mapper<Event>().mapArray(JSONArray: value!)!)
+    },
+        toJSON: {(value: NSSet?) -> [[String: Any]]? in
+            if let value = value, let allObjects = value.allObjects as? [Event] {
+                return allObjects.toJSON()
+            }
+            return nil
+    })
+    
     static let date = TransformOf<Date, String>(
         fromJSON: { (value: String?) -> Date? in
             return EDDateFormatter.defaultTimeDateFormatter.date(from: value!)
